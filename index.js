@@ -1,5 +1,5 @@
 var inquirer = require("inquirer");
-var UserSearch = require("./Word");
+var Word = require("./Word");
 
 var randomWords = ['kanto', 'johto', 'suicune', 'pikachu', 'badges', 
 'goldenrod', 'espeon', 'chikorita', 'cyndaquil', 'totodile', 'pokemon', 'crystal'];
@@ -11,11 +11,23 @@ var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 
 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-var guessesRemain = 11;
-var gameOver = false;
-var chosenWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+var guessedLetters = [];
+var guessesRemain = 12;
+
+var startGame = function() {
+	gameOver = false;
+	var chosenWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+	console.log(chosenWord);
+	var formattedWord = new Word(chosenWord);
+	formattedWord.getLetters();
+	console.log(formattedWord.renderWord());
+}
 
 var runGame = function() {
+	
+	if (guessesRemain == 12) {
+		startGame();
+	}
 
 	inquirer.prompt([
 	{
@@ -23,8 +35,28 @@ var runGame = function() {
 		message: "Guess a letter!"
 	}
 	]).then(function(answers) {
+		
+		var currentGuess = answers.guess;
 
-		guessesRemain = guessesRemain - 1;
+
+		if (guessedLetters.includes(currentGuess)) {
+			guessedLetters = guessedLetters;
+			guessesRemain = guessesRemain;
+			console.log("You have already guessed this letter! Guess again.")
+		}
+		else {
+			guessedLetters.push(currentGuess);
+			guessesRemain = guessesRemain - 1;
+		}
+
+
+		console.log("Guesses remaining: " + guessesRemain);
+		console.log("Letters you have already guessed:");
+		for (var i = 0; i < guessedLetters.length; i++) {
+			console.log(guessedLetters[i]);
+		}
+
+
 
 		if (guessesRemain == 0) {
 			gameOver = true;
@@ -34,6 +66,8 @@ var runGame = function() {
 		else {
 			runGame();
 		}
+
+
 	});
 }
 
