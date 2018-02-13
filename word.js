@@ -1,26 +1,21 @@
-var Word = function() {
+var letters = require("./Letters");
+
+var Word = function(word) {
   this.word = word;
-  this.getData = function() {
-    fs.readFile("log.txt", "utf8", function(error, data) {
-      console.log(data);
-    });
+  this.letters = [];
+  this.renderWord = function() {
+    var store = '';
+    for (var i=0; i < this.letters.length; i++){
+      store += this.letters[i].letterRender();
+    }
+    return store;
   };
 
-  this.newUserSearch = function(name, location) {
-    var newUserSearch = new UserSearch(name, location);
-    var logTxt =
-      "\nName: " +
-      newUserSearch.name +
-      " Location: " +
-      newUserSearch.location +
-      " Date: " +
-      moment(newUserSearch.date).format("MM-DD-YYYY");
-
-    fs.appendFile("log.txt", logTxt, function(err) {
-      if (err) throw err;
-    });
-
-    newUserSearch.getWeather();
+  this.getLetters = function() {
+    for (var i=0; i < this.letters.length; i++) {
+      var holdLets = new Letter(this.letters[i]);
+      this.letters.push(holdLets);
+    }
   };
 };
 

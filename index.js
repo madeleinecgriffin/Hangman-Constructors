@@ -1,5 +1,5 @@
 var inquirer = require("inquirer");
-var UserSearch = require("./UserSearch");
+var UserSearch = require("./Word");
 
 var randomWords = ['kanto', 'johto', 'suicune', 'pikachu', 'badges', 
 'goldenrod', 'espeon', 'chikorita', 'cyndaquil', 'totodile', 'pokemon', 'crystal'];
@@ -11,37 +11,31 @@ var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 
 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-var guessesRemain = 12;
+var guessesRemain = 11;
 var gameOver = false;
 var chosenWord = randomWords[Math.floor(Math.random() * randomWords.length)];
 
 var runGame = function() {
 
-	if (guessesRemain == 12) {
-		var newWord = new Word(chosenWord);
+	inquirer.prompt([
+	{
+		name: "guess",
+		message: "Guess a letter!"
 	}
+	]).then(function(answers) {
 
-	else {
+		guessesRemain = guessesRemain - 1;
 
-		if (gameOver = false) {
-			inquirer.prompt([
-			{
-				guess: "guess",
-				message: "Guess a letter!"
-			}
-			]).then(function(answers) {
-
-				guessesRemain = guessesRemain - 1;
-
-				runGame();
-			});
-		}
-		else {
+		if (guessesRemain == 0) {
+			gameOver = true;
 			console.log("Your game is over.");
 			return
 		}
-	}
+		else {
+			runGame();
+		}
+	});
 }
-};
+
 
 runGame();
