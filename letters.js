@@ -25,7 +25,6 @@ var Letters = function(letter) {
   		this.guessed = true;
   	}
 
-  	console.log("Your guess " + currentGuess + " is " + this.guessed);
   };
 };
 

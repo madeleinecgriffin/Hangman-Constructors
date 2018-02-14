@@ -41,6 +41,7 @@ var Word = function(word) {
     console.log("Below is the status of your current word. Keep guessing to fill in the blanks!\n");
     console.log(store);
     console.log("\n*********************************************");
+    return store;
 
   };
 };
