@@ -13,14 +13,40 @@ var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
 
 var guessedLetters = [];
 var guessesRemain = 12;
+var newWord;
 
 var startGame = function() {
+	console.log("*********************************************\n");
+	console.log("You are now playing hangman! Guess one letter at a time to fill in the blanks below and guess the word.");
+	console.log("The theme is: POKEMON\n");
 	gameOver = false;
 	var chosenWord = randomWords[Math.floor(Math.random() * randomWords.length)];
-	console.log(chosenWord);
-	var formattedWord = new Word(chosenWord);
-	formattedWord.getLetters();
-	console.log(formattedWord.renderWord());
+	newWord = new Word(chosenWord);
+	newWord.getLetters();
+	var formattedWord = newWord.word;
+}
+
+var checkGuess = function(currentGuess, newWord) {
+
+	currentGuess = currentGuess.toString();
+
+	if (guessedLetters.includes(currentGuess)) {
+		guessedLetters = guessedLetters;
+		guessesRemain = guessesRemain;
+		console.log("You have already guessed this letter! Guess again.")
+	}
+	else {
+		guessedLetters.push(currentGuess);
+		guessesRemain = guessesRemain - 1;
+		newWord.checkWord(currentGuess);
+	}
+
+	console.log("*********************************************");
+	console.log("Guesses remaining: " + guessesRemain);
+	console.log("Letters you have already guessed:");
+	console.log(guessedLetters);
+
+	newWord.getLetters();
 }
 
 var runGame = function() {
@@ -38,25 +64,7 @@ var runGame = function() {
 		
 		var currentGuess = answers.guess;
 
-
-		if (guessedLetters.includes(currentGuess)) {
-			guessedLetters = guessedLetters;
-			guessesRemain = guessesRemain;
-			console.log("You have already guessed this letter! Guess again.")
-		}
-		else {
-			guessedLetters.push(currentGuess);
-			guessesRemain = guessesRemain - 1;
-		}
-
-
-		console.log("Guesses remaining: " + guessesRemain);
-		console.log("Letters you have already guessed:");
-		for (var i = 0; i < guessedLetters.length; i++) {
-			console.log(guessedLetters[i]);
-		}
-
-
+		checkGuess(currentGuess, newWord);
 
 		if (guessesRemain == 0) {
 			gameOver = true;
@@ -70,6 +78,5 @@ var runGame = function() {
 
 	});
 }
-
 
 runGame();
