@@ -1,0 +1,24 @@
+{
+  "name": "Hangman-Constructors",
+  "version": "1.0.0",
+  "description": "This is a hangman game made with constructors and recursion in Javascript. It is run through Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madeleinecgriffin/Hangman-Constructors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madeleinecgriffin/Hangman-Constructors/issues"
+  },
+  "homepage": "https://github.com/madeleinecgriffin/Hangman-Constructors#readme",
+  "dependencies": {
+    "inquirer": "^5.1.0",
+    "save": "^2.3.2"
+  }
+}
